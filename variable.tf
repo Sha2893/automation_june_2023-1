@@ -24,4 +24,31 @@ variable "dns_support_enabled" {
 variable "vpc_name" {
   type        = string
   description = "Name for the vpc"
+  default     = "teerfaomr_vpc-lawplabs"
+}
+
+variable "web_server_name" {
+  type        = string
+  description = "Name for the instance created as web server"
+}
+
+variable "inbound_rules_web" {
+  description = "ingress rule for security group of web server"
+  type = list(object({
+    port        = number
+    description = string
+    protocol    = string
+    cidr_range = list(string)
+  }))
+
+  default = [{
+    port        = 22
+    description = "This is for ssh connection"
+    protocol    = "tcp"
+    },
+    {
+      port        = 80
+      description = "this is for web hosting"
+      protocol    = "tcp"
+  }]
 }
