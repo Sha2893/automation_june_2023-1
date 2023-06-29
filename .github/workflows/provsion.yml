@@ -9,6 +9,9 @@ on:
 jobs:
   provision-three-tier:
     runs-on: ubuntu-latest
+    env:
+      PKR_VAR_region: "us-east-1"
+      PKR_VAR_instance_type: "t2.micro"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
