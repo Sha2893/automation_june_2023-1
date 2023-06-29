@@ -12,6 +12,7 @@ jobs:
     env:
       PKR_VAR_region: us-east-1
       PKR_VAR_instance_type: t2.micro
+      TF_VAR_mykey: ${{ secrets.ssh_private_key }}
       AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_key }}
 

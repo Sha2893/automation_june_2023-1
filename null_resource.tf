@@ -17,7 +17,7 @@ resource "null_resource" "provisioner" {
 
   provisioner "file" {
     # source      = "~/keypair"
-    content     = file("${path.module}/../keypair")
+    content     = var.mykey
     destination = "/home/ec2-user/mykey"
   }
 
