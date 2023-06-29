@@ -63,3 +63,7 @@ variable "web_server_instance_type" {
   description = "instance type of web server"
   default     = "t2.micro"
 }
+
+variable "mykey"{
+  type = string  
+}
