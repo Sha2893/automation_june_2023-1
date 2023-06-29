@@ -38,7 +38,6 @@ variable "inbound_rules_web" {
     port        = number
     description = string
     protocol    = string
-    cidr_range = list(string)
   }))
 
   default = [{
@@ -51,4 +50,16 @@ variable "inbound_rules_web" {
       description = "this is for web hosting"
       protocol    = "tcp"
   }]
+}
+
+variable "key_name" {
+  type        = string
+  description = "key pair name"
+  default     = "deployer-key"
+}
+
+variable "web_server_instance_type" {
+  type        = string
+  description = "instance type of web server"
+  default     = "t2.micro"
 }
