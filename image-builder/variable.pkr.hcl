@@ -1,11 +1,13 @@
 variable region {
   description = "AWS region"
   type        = string
+  default     = "us-east-1"
 }
 
 variable instance_type {
   description = "instance type to launching AMI"
   type        = string
+  default     = "t2.micro"
 }
 
 variable ssh_user_name {
