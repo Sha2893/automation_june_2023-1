@@ -11,14 +11,15 @@ resource "null_resource" "provisioner" {
     private_key = var.mykey
   }
 
-  #   provisioner "local-exec" {
-  #     command = "scp -o StrictHostKeyChecking=no -i ~/Downloads/test.pem ~/Downloads/test.pem ec2-user@${aws_instance.bastion.public_ip}:~"
-  #   }
+    # provisioner "local-exec" {
+    #   command = "scp -o StrictHostKeyChecking=no -i var.mykey var ec2-user@${aws_instance.bastion.public_ip}:~"
+    # }
 
   provisioner "file" {
     # source      = "~/keypair"
     content     = var.mykey
     destination = "/home/ec2-user/mykey"
+    on_failure = continue
   }
 
 

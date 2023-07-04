@@ -10,7 +10,7 @@ resource "aws_security_group" "web_server" {
       protocol    = ingress.value.protocol
       from_port   = ingress.value.port
       to_port     = ingress.value.port
-      cidr_blocks = [aws_vpc.this.cidr_block]
+      security_groups = [aws_security_group.lb_sg.id]
     }
   }
 
