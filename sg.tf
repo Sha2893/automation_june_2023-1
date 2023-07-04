@@ -6,10 +6,10 @@ resource "aws_security_group" "web_server" {
   dynamic "ingress" {
     for_each = var.inbound_rules_web
     content {
-      description = ingress.value.description
-      protocol    = ingress.value.protocol
-      from_port   = ingress.value.port
-      to_port     = ingress.value.port
+      description     = ingress.value.description
+      protocol        = ingress.value.protocol
+      from_port       = ingress.value.port
+      to_port         = ingress.value.port
       security_groups = [aws_security_group.lb_sg.id]
     }
   }
