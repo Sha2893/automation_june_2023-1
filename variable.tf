@@ -83,3 +83,15 @@ variable "web_server_instance_type" {
 variable "mykey" {
   type = string
 }
+
+variable "db_user_name" {
+  description = "User name to connect with RDS"
+  type        = string
+  sensitive   = true
+}
+
+variable "db_password" {
+  description = "Password for db user"
+  type        = string
+  sensitive   = true
+}
