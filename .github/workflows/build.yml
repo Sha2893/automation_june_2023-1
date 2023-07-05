@@ -35,5 +35,5 @@ jobs:
               run: "packer validate ./image-builder/"
 
             - name: build image
-                id: build
-                run: "packer build ./image-builder/"
+              id: build
+              run: "packer build ./image-builder/"

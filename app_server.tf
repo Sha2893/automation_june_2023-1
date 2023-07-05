@@ -30,6 +30,7 @@ module "asg" {
 
   image_id          = "ami-06b09bfacae1453cb"
   instance_type     = "t3.micro"
+  key_name          = var.key_name
   ebs_optimized     = true
   enable_monitoring = true
   security_groups   = [aws_security_group.application_server.id]
@@ -70,12 +71,12 @@ module "asg" {
     cpu_credits = "standard"
   }
 
-  instance_market_options = {
-    market_type = "spot"
-    spot_options = {
-      block_duration_minutes = 60
-    }
-  }
+  # instance_market_options = {
+  #   market_type = "spot"
+  #   spot_options = {
+  #     block_duration_minutes = 60
+  #   }
+  # }
 
   metadata_options = {
     http_endpoint               = "enabled"
@@ -102,6 +103,57 @@ module "asg" {
       tags          = { WhatAmI = "SpotInstanceRequest" }
     }
   ]
+
+  initial_lifecycle_hooks = [
+    {
+      name                  = "ExampleStartupLifeCycleHook"
+      default_result        = "CONTINUE"
+      heartbeat_timeout     = 60
+      lifecycle_transition  = "autoscaling:EC2_INSTANCE_LAUNCHING"
+      notification_metadata = jsonencode({ "hello" = "world" })
+    },
+    {
+      name                  = "ExampleTerminationLifeCycleHook"
+      default_result        = "CONTINUE"
+      heartbeat_timeout     = 180
+      lifecycle_transition  = "autoscaling:EC2_INSTANCE_TERMINATING"
+      notification_metadata = jsonencode({ "goodbye" = "world" })
+    }
+  ]
+
+  # Target scaling policy schedule based on average CPU load
+  scaling_policies = {
+    avg-cpu-policy-greater-than-50 = {
+      policy_type               = "TargetTrackingScaling"
+      estimated_instance_warmup = 1200
+      target_tracking_configuration = {
+        predefined_metric_specification = {
+          predefined_metric_type = "ASGAverageCPUUtilization"
+        }
+        target_value = 50.0
+      }
+    },
+    predictive-scaling = {
+      policy_type = "PredictiveScaling"
+      predictive_scaling_configuration = {
+        mode                         = "ForecastAndScale"
+        scheduling_buffer_time       = 10
+        max_capacity_breach_behavior = "IncreaseMaxCapacity"
+        max_capacity_buffer          = 10
+        metric_specification = {
+          target_value = 32
+          predefined_scaling_metric_specification = {
+            predefined_metric_type = "ASGAverageCPUUtilization"
+            resource_label         = "testLabel"
+          }
+          predefined_load_metric_specification = {
+            predefined_metric_type = "ASGTotalCPUUtilization"
+            resource_label         = "testLabel"
+          }
+        }
+      }
+    }
+  }
 
   tags = {
     Environment = "dev"
