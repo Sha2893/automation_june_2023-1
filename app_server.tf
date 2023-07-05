@@ -89,20 +89,20 @@ module "asg" {
     availability_zone = "us-west-1b"
   }
 
-  tag_specifications = [
-    {
-      resource_type = "instance"
-      tags          = { WhatAmI = "Instance" }
-    },
-    {
-      resource_type = "volume"
-      tags          = { WhatAmI = "Volume" }
-    },
-    {
-      resource_type = "spot-instances-request"
-      tags          = { WhatAmI = "SpotInstanceRequest" }
-    }
-  ]
+  # tag_specifications = [
+  #   {
+  #     resource_type = "instance"
+  #     tags          = { WhatAmI = "Instance" }
+  #   },
+  #   {
+  #     resource_type = "volume"
+  #     tags          = { WhatAmI = "Volume" }
+  #   },
+  #   {
+  #     resource_type = "spot-instances-request"
+  #     tags          = { WhatAmI = "SpotInstanceRequest" }
+  #   }
+  # ]
 
   initial_lifecycle_hooks = [
     {
