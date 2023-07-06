@@ -9,6 +9,6 @@ jobs:
         steps:
 
         - name: checkout
-          uses: actions/checkout@master
+          uses: actions/checkout@main
           with:
             repository: Gauravlwplabs/terraform_multibranch
