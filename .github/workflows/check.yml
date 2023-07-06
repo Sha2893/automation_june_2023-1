@@ -1,0 +1,14 @@
+on:
+    workflow_dispatch:
+
+jobs:
+    checks:
+        name: checks
+        runs-on: ubuntu-latest
+    
+        steps:
+
+        - name: checkout
+          uses: actions/checkout@master
+          with:
+            repository: Gauravlwplabs/terraform_multibranch
