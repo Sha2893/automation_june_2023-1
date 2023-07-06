@@ -21,6 +21,9 @@ jobs:
         
         - name: build package
           run: mvn clean package
+        
+        - name: deploy package
+          run: aws s3 cp target/*.war s3://artifactforwarapplicationlwplabs
     
 
           
