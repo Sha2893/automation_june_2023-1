@@ -1,0 +1,35 @@
+on:
+    workflow_dispatch:
+
+jobs:
+    packagev2:
+        name: packagev2
+        runs-on: ubuntu-latest
+    
+        steps:
+
+        - name: checkout
+          uses: actions/checkout@master
+          with:
+            repository: Gauravlwplabs/java-db-Login
+
+        - name: Setup JDK 8
+          uses: actions/setup-java@v3
+          with:
+            distribution: 'temurin'
+            java-version: '8'
+        
+        - name: build package
+          run: mvn clean package
+    
+
+    deploy-package:
+          name: deploy-to-s3
+          runs-on: ubuntu-s3
+          env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+            AWS_REGION: "us-east-1"
+          steps:    
+            - name: deploy package
+              run: aws s3 cp target/*.war s3://artifactforwarapplicationlwplabs
