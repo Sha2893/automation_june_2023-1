@@ -40,6 +40,14 @@ jobs:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
             AWS_REGION: "us-east-1"
-          steps:    
+          steps: 
+            - name: download artifact
+              uses: actions/download-artifact@v3
+              with:
+                name: my-artifact
+                path: package
+            
+            - run: ls -R
+                
             - name: deploy package
               run: aws s3 cp package/*.war s3://artifactforwarapplicationlwplabs
