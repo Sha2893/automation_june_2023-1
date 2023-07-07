@@ -21,7 +21,16 @@ jobs:
         
         - name: build package
           run: mvn clean package
-    
+        
+        - name: create dir
+          run: mkdir package && cp target/*.war package
+        
+        - uses: actions/upload-artifact@v3
+          with:
+            name: my-artifact
+            path: package
+        
+        - run: ls package
 
     deploy-package:
           name: deploy-to-s3
