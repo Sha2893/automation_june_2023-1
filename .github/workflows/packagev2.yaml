@@ -42,4 +42,4 @@ jobs:
             AWS_REGION: "us-east-1"
           steps:    
             - name: deploy package
-              run: aws s3 cp target/*.war s3://artifactforwarapplicationlwplabs
+              run: aws s3 cp package/*.war s3://artifactforwarapplicationlwplabs
