@@ -14,7 +14,7 @@ terraform {
     bucket         = "terraformstatefilebucket-127882363839"
     key            = "terraform-state-file-june-23"
     region         = "us-east-1"
-    role_arn       = "arn:aws:iam::520464532822:role/stsassumerole"
+    role_arn       = "arn:aws:iam::576096981613:role/stsAssume"
     dynamodb_table = "terraformstatetable"
   }
 }
@@ -22,7 +22,7 @@ terraform {
 provider "aws" {
   region = "us-east-1"
   assume_role {
-    role_arn     = "arn:aws:iam::520464532822:role/stsassumerole"
+    role_arn     = "arn:aws:iam::576096981613:role/stsAssume"
     session_name = "terraform-sts"
   }
 }
